@@ -1,0 +1,43 @@
+[a=12]
+
+:title Grand check_title_parameters **
+
+[aligsn=tight, frame=1, other=12, align=20, align=30]
+:para paragraphe ** 
+voici la suite // de ** mon paragraph
+
+[align=tight, toto=true]   
+:para paragraphe
+
+:para:right/ Vers la droite
+
+:* Item 1
+:** Item 1.2
+:+
+Embedded paragraphe
+:+
+:quote
+Embedded quote
+:quote
+
+:quote
+
+:= kjfk
+
+:. Item 1
+:. Item 2
+
+:verbatim
+    def foo
+        puts "foo"
+    end
+:verbatim
+
+:slot
+un slot
+:* Item 1 in slot
+:* Item 2 in slot
+
+:slot
+
+

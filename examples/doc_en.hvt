@@ -1,0 +1,336 @@
+:= Hoverscript
+
+:== General
+
+Hoverscript is a lightweight markup language, inspired by Markdown and AsciiDoc.
+
+It is intended to be used for writing structured documents, with headings, lists, paragraphs, quotes, tables, images, links, etc.
+
+:=== Document structure
+
+A document is a list of blocks of several types.
+
+There is a default "paragraph" block, which is used when the block type is not specified. 
+The paragraph is simply made up of lines of text, followed by a blank line, or by the beginning of another block, indicated by a marker.
+
+:=== Indentation
+
+Indentation has no meaning, it is ignored by the parser. It is used for readability of the source file.
+There is a special case for verbatim blocks (see below)
+
+:=== Block marker
+
+A line that starts (first non-empty character) with a ":" indicates a new block. The block type is indicated by the word that follows the ":".
+
+We have either:
+:verbatim
+:* a block type without parameters, in which case we can write ":blocktype", for example ":para",
+:* a block type with named parameters, ":blocktype: par1=val1 par2=val2/" (note that it is not :blocktype par1=val1 par2=val2/, the ":" after the block type is mandatory)
+:* a block type with simple parameters, ":blocktype: val1 val2/". In this case, the meaning of the parameters is defined by the block type and the parameter position
+:verbatim
+
+There can be synonyms for common block types, with usual parameters:
+
+For example, heading blocks have as a fundamental parameter the title **level** (1 to 6).
+:* A level 1 heading block can be shorten by using simply ":=" or ":h:1/" or ":h: level=1/".
+:* A level 2 heading block can be indicated by: ":==" or ":h:2/" or ":h: level=2/".
+
+:=== Block marker parameters
+
+We can also specify block marker parameters by indicating them on the line **preceding** the block marker. 
+
+A parameter line has the form "[par1=val1, par2=val2, ...]". Spaces can be put before and after the options, but nothing else should appear on the line
+
+For example, we can indicate the level of a heading by ":h:1/" or by 
+:verbatim
+   [level=1]
+   :h This is a level 1 title
+:verbatim
+
+:=== Blank lines
+
+A line is said to be blank if it contains no characters or only "white" characters: spaces, tabs.
+
+:=== How to indicate the end of a block?
+
+The end of a block is indicated by a blank line, or by the beginning of another block. But beware, the mark of a new block can sometimes be the beginning of a **sub-block**, as it happens in certain list contexts.
+
+Some types of blocks have an end indicated by the same marker as the beginning of the block, those are called "fenced blocks".
+
+:=== The continuation line
+
+A specific line, which contains only the string ":+" (with optional blanks before and after) is called a "continuation line". Its meaning is explained later.
+
+:=== Line breaks within a Paragraph
+
+To indicate that there is a line break within a paragraph, whatever the target width of the output, we finish the line with "::". Nothing should follow "::".
+This is the equivalent of the HTML <br> tag.
+
+:== Block types
+
+:=== Paragraph
+
+Indicated by para or p. This is the default block. This is also the default block type when there is no block marker.
+
+:para
+:p
+
+If you want to put options, you have to indicate :para:. For example:
+:verbatim
+[align=center]
+:para
+:verbatim
+
+Parameters:
+:* The implicit parameter is the alignment (//align//) as in: ":para:center/ paragraph content". The admissible values for align are "center", "left", "right", "justify". "justify" is the default value.
+:* align: center, left, right, justify
+:* frame: 0: no frame, 1: frame (2: ? TBD)  to surround the paragraph with a frame
+
+:=== Headings
+
+Indicated by //heading//, //h// or //=//. Headings have a level (1..7)
+Examples:
+:verbatim
+  :h:1/ Heading 1
+  :h:2/ Heading 2
+  :heading:3/ Heading 3
+  := Heading 1
+  :== Heading 2
+:verbatim
+
+Attention, the heading text is not only the text that follows the heading marker. 
+It is the text that follows the heading marker, and the following lines until a blank line or the beginning of another block.
+
+For example:
+:verbatim
+:== This is the beginning of the heading text
+but this part is still the heading text
+
+This is the beginning of a new paragraph
+:verbatim
+
+:=== Nested lists
+
+:==== Bullet lists
+
+Indicated by list, l or *. They have a level (1,2,3)
+":*" -> level 1 list
+":**"-> level 2 list
+":list:1/" -> level 1 list
+":list" -> level 1
+":l" -> level 1
+
+Typically, the bullet will be followed by a paragraph.
+
+The paragraph can fit on a single line, like:
+
+":* Here is an item"
+
+Or on multiple lines like:
+
+:* Pandoc – the general markup converter (and Haskell library) written by John MacFarlane – needs to be available. 
+You may follow the official installation instructions
+Etc etc
+
+If you want to put multiple paragraphs, use ":+" (the continuation line) to link additional paragraphs
+
+:* Pandoc – the general markup converter (and Haskell library) written by John MacFarlane – needs to be available. 
+You may follow the official installation instructions
+:+
+Put here a following paragraph
+:+
+and another paragraph
+
+:==== Numbered lists
+
+Indicated by num, n or ".". They have a level.
+:.
+:..
+:n:1,counter=1/ -> indicates the level and the counter
+:num:2/
+:num
+
+:==== Nesting lists
+
+We can nest lists. In this case, the level of the nested list must be indicated.
+:* Item 1
+:* Item 2
+:** Item 2.1
+:** Item 2.2
+:* Item 3
+
+We can mix list types. For example:
+:verbatim
+  :* Item 1
+  :.. Item 1.1
+  :.. Item 1.2
+  :* Item 2
+:verbatim
+
+:==== Indentation in lists
+
+Indentation has no meaning, it is ignored by the parser. It is used for readability of the source file.
+
+For example, consider:
+
+:* Item 1
+  :* Item 2
+
+"Item 2" is at the same level as "Item 1", even though it is presented indented.
+
+:==== Beware of blank lines!
+
+The following example is a two-item numbered list:
+
+:. Item 1
+:. Item 2
+
+It will output:
+
+1. Item 1
+2. Item 2
+
+On the other hand, if we add a blank line between the two items, we get **two** lists with **one** item each.
+This will output:
+
+1. Item 1
+
+1. Item 2
+
+If we want to mark a space, but stay within the same list, we can use the continuation character, as in:
+
+:. Item 1
+:+
+:. Item 2
+
+
+:=== Horizontal Separators
+
+:separator: Horizontal separator
+:sep: Horizontal separator
+:sep: stars/
+:sep: line/
+etc...
+
+Parameters:
+:* //type//: line, stars, asterism, dinkus
+
+
+:=== Quote blocks
+
+End and start with:
+:quote
+:quote: identifier/
+or
+[name=identifier]
+:quote  
+Identifier signal the end of the :quote block in case of nested blocks (one should match the identifiers)
+Heading ends the quote block
+
+Example: 
+:quote: q1/
+This is a quote
+That includes another quote
+  :quote: q2/
+  the nested quote
+  :quote: q2/
+:quote: q1/ (and nothing else on the line)
+
+
+:=== Footnotes
+
+Start with:
+:footnote: ref_identifier/
+Ends with:
+:footnote:/  (and nothing else on the line)
+
+Footnotes can't be nested
+
+
+:=== Generic Verbatim / Code Block (can not host nested blocks)
+
+This need a different parsing (in case )
+
+[type=code, lang=html]
+:verbatim: /
+:verbatim: identifier/
+
+Ends with :verbatim 
+
+If the verbatim contains :verbatim: then one has to use the identifier to match the end of the block.
+:verbatim: name=code1/
+
+
+Example:
+
+[type=code,lang=html]
+:block: id1/
+
+<html><body>
+example
+</body></html>
+
+:block: id1/
+
+:== Text formatting
+
+We can indicate formatting marks in the body of the text. To do this, we surround the text with specific double characters
+
+:* Emphasized text -> //text// Italics
+:* Underlined text -> __text__ Underlined
+:* Strongly emphasized text -> **text** Bold
+:* Strikeout text -> ~~text~~ Strikethrough
+:* Superscripted text -> ^^text^^ Exponent
+:* Subscripted text -> ,,text,, Subscript
+
+We can nest markings. In the following example, "heavy" is both italic and bold.
+:verbatim
+When //the sky ,,low,, and **heavy**// __weighs__ like a lid
+:verbatim
+
+But we can't nest the same type of marking. 
+
+:== Links and other special inlines 
+
+a special inline has the form "[:inline_type: parameters]++ a text ++" or "[:inline_type: parameters]" if the text is empty.
+The parameters are either named or positional. The meaning of the parameters is defined by the inline type.
+This means that we can have "[:image: image1]" or "[:image: name=image1]".
+
+
+===================
+RESERVED FOR LATER
+
+:* HIHGLIGHT -> ##text## Highlighted) NOT DONE
+
+
+:=== Task lists
+
+They have no nesting level. Indicated by checked or cl. They have a parameter "X" or "x" to indicate whether they are checked or not.
+:cl:X/
+:checked:X/
+:cl
+:cl:/
+:checked:/
+
+Quote
+
+:quote Pandoc – the general markup converter (and Haskell library) written by John MacFarlane – needs to be available. 
+You may follow the official installation instructions\
+The quote goes on here
+and here.
+
+But the quote is finished here.
+
+:quote It is also a quote.
+
+Code
+
+(fenced)
+:``` (to start and end)
+:code
+:c
+:c:html/
+:c/
+:```/
+
+See https://docs.asciidoctor.org/asciidoc/latest/text/

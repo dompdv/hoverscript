@@ -1,0 +1,47 @@
+:*        Item 1
+
+:**       Item 1.1
+:**       Item 1.2
+
+
+
+:*        Item 2
+
+:**       Item 2.1
+:***         Item 2.1.1
+:**       Item 2.2
+
+          Et les numérotés
+:.        Item 1
+:.        Item 2
+:..          Item 2.1
+:...            Item 2.1.1
+:..          Item 2.2
+:.        Item 3
+
+          Et mixte
+:.        Item 1
+:**          Item 1 Qui continue sur plusieurs lignes Comme ceci
+
+          Dernier paragraphe
+
+:*        Item 1
+          :+
+          Est dans Item 1 et peut même s'étaler sur plusieurs lignes
+          :+
+          Deuxième paragraphe
+
+
+:.        Item 1.1 Qui continue sur plusieurs lignes Comme ceci
+          :+
+          Est dans Item 1.1 et peut même s'étaler sur plusieurs lignes
+          :+
+          //Deuxième paragraphe//
+
+
+:=        Titre 1
+
+             Para 1
+             :+
+             Para 2
+

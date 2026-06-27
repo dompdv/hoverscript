@@ -1,0 +1,138 @@
+
+:title Titre du document
+
+:sep
+
+:= Le Quatorze Juillet, fête nationale française
+
+:== Histoire
+
+:=== Que s'est-il passé le 14 juillet 1789 ?
+
+    En 1789, les États généraux composés des représentants élus de la noblesse, du clergé et du Tiers-État sont réunis le 5 mai à la suite 
+    des doléances parvenues au roi Louis XVI. Le 27 juin, le roi accepte le rassemblement des trois ordres qui se proclament "Assemblée nationale constituante" le 9 juillet.
+
+    Dans le même temps, des troupes royales se concentrent autour de Versailles et de Paris. Le renvoi du ministre Necker le 11 juillet et la rumeur de l'intervention des troupes royales finissent par convaincre la population parisienne de s'organiser et des appels aux armes sont lancés.
+
+    Le matin du 14 juillet, une foule composée notamment d'artisans et de boutiquiers se dirige vers les Invalides où sont stockés les armes. 
+    Ces Parisiens prennent ensuite la direction de la Bastille pour récupérer de la poudre. Le gouverneur de la place forte décide de faire tirer sur la foule et une journée de fusillades s'ensuit. La garnison se rend tandis que son gouverneur est exécuté peu après la prise de la Bastille.
+
+:=== Et le 14 juillet 1790 ?
+
+
+:para:right/    Un an plus tard, le 14 juillet 1790, la prise de la Bastille est célébrée lors de la Fête de la Fédération. 
+    Les fédérations locales des gardes nationaux, qui se sont créées dans toutes les provinces françaises durant l'été 1789, se rassemblent au Champ-de-Mars pour défiler et célébrer le premier anniversaire de la prise de la Bastille et l'union de la Nation.
+
+[align=center]
+:p:/    En présence du roi et de la reine une messe est célébrée par l'évêque Talleyrand, suivie de la prononciation des serments au Roi, à la Nation et à la Loi et un Te Deum est donné.
+
+:=== Quand cette date est-elle devenue une fête nationale ?
+
+[frame=1]
+:p C'est sous la IIIe République, sous l'impulsion du député Benjamin Raspail, que la loi du 6 juillet 1880 consacre le 14 juillet comme jour de fête nationale
+ annuelle. L'unique article de cette loi ne donne aucune précision, la fête nationale du 14 juillet commémorant les deux 14 juillet, la prise de la Bastille de 1789 ainsi 
+ que la première Fête de la Fédération de 1790.
+
+:footnote: identifier1/
+Ceci une une note de bas de page
+:footnote
+
+:footnote: id/
+Ceci une une note de bas de page
+:quote
+test
+:quote
+:footnote
+
+Lors des débats parlementaires sur ce texte de loi pour fixer la date du 14 juillet comme jour de fête nationale, d'autres dates sont évoquées comme le 5 mai (ouverture des États généraux) et le 4 août (abolition des privilèges).
+
+:quote:l1/
+    :quote:l2/
+        L'adoption d'un jour de fête nationale marque l'enracinement de la République. La loi est adoptée après la victoire des 
+        républicains aux élections législatives de 1876 et la démission du président de la République Mac-Mahon au début de l'année 1879, remplacé par le républicain Jules Grévy. Les républicains contrôlent l'ensemble des institutions du régime. 
+    :quote:l2/
+Suite quote l1
+:quote:l1/
+
+:== La fête nationale aujourd'hui
+
+:verbatim: id/
+    test
+    :+
+    :== tokenized_lines_after_option_check
+    [align=center]
+    :p paragraphe
+    :p:right/ tyest
+    :verbatim
+    
+:verbatim:id/
+
+:=== Pourquoi un défilé militaire est-il organisé ?
+
+Dès l'adoption du 14 juillet comme fête nationale annuelle, une place centrale est accordée à l'armée dans les festivités. Ainsi, en 1880, le programme prévoit le défilé militaire sur l'hippodrome de Longchamp. Ce choix du 14 juillet a été fait car cette date représentait un événement et une fête civique mêlant le peuple et l'armée. Ainsi, chaque année, un défilé militaire était organisé au programme des festivités 
+nationales.
+
+Et c'est après la Première guerre mondiale, le 14 juillet 1919, que le défilé militaire se déroule sur les Champs-Élysées (en 1919 avec les "gueules cassées" suivies des troupes alliées victorieuses et de l'armée 
+française).
+
+Par la suite, le défilé ne s'est pas toujours déroulé sur les Champs-Élysées, comme, par exemple, en 1979, 
+où il avait eu lieu à Paris, entre la place de la République et la place de la Bastille.
+
+Quels sont les autres symboles et emblèmes de la République ?
+
+Le drapeau français tricolore, la devise "Liberté, Égalité, Fraternité" et l'hymne national La Marseillaise sont des emblèmes et 
+symboles constitutionnellement reconnus à l'article 2 de la Constitution de 1958. La Marianne, le coq, le faisceau du licteur et le sceau complètent 
+la liste des emblèmes et symboles représentant la République française.
+
+:=== Qu'en est-il des interviews télévisées des présidents de la République le 14 juillet ?
+
+Les entretiens présidentiels à la télévision, inaugurés par Valéry Giscard d'Estaing le 14 juillet 1978, en marge de la 
+fête nationale, sont devenus une "tradition présidentielle" se déroulant au Palais de l'Élysée après le défilé militaire du 14 juillet.
+
+De 2017 à 2019, Emmanuel Macron n'accorde pas d'interview le 14 juillet. Dans le contexte de la crise sanitaire liée au Covid-19, le président de la République donne une interview le 14 juillet 2020. Emmanuel Macron accorde également une interview le 14 juillet 2022. Néanmoins, le président de la République ne s'exprimera pas le 14 juillet 
+
+:verbatim: id/     
+  test
+    :+
+     :== tokenized_lines_after_option_check
+      [align=center]
+       :p paragraphe
+        :p:right/ tyest
+ :verbatim
+:verbatim:id/
+
+
+:= Les emblèmes de la République
+
+:. **Le drapeau**
+:+
+Emblème national de la Cinquième République, le drapeau tricolore est né sous la Révolution française, de 
+la réunion des couleurs du roi (blanc) et de la ville de Paris (bleu et rouge). Aujourd'hui, le drapeau tricolore flotte sur tous les bâtiments publics. Il est déployé dans la plupart des cérémonies officielles, qu'elles soient civiles ou militaires.
+:. **L'hymne national**
+:+
+L’histoire a fait de ce chant de guerre révolutionnaire un hymne national aux accents de liberté, qui accompagne aujourd'hui la plupart des manifestations officielles.
+:+
+Son auteur, Claude-Joseph Rouget de Lisle, né 1760 à Lons-le-Saunier, était capitaine du génie sous la Révolution. Dans la nuit du 25 au 26 avril 1792, à la suite de la déclaration de guerre de la France à l'empereur d'Autriche, il composa chez le maire de Strasbourg, dénommé Dietrich, un morceau qu’il intitula "Chant de guerre pour l'armée du Rhin".
+:+
+L’hymne fut d’abord diffusé en Alsace sous forme manuscrite ou imprimée, avant d’être repris par de nombreux éditeurs parisiens. Entonné par les fédérés de Marseille participant à l'insurrection des Tuileries le 10 août 1792, il se répandit de bouche à oreille, et son succès fut tel qu'il fut déclaré chant national le 14 juillet 1795. 
+:+
+:. **Marianne**
+:+
+La première allégorie de la République sous les traits d’une femme coiffée d’un bonnet phrygien remonte à la Révolution française : ce bonnet porté par les esclaves affranchis en Grèce et à Rome, apprécié des marins et des galériens de la Méditerranée, est fièrement repris par les révolutionnaires venus du Midi comme emblème de la liberté.
+:. **Liberté Egalité Fraternité**
+:+
+Les notions de liberté, d'égalité et de fraternité n’ont pas été inventées par la Révolution. Le rapprochement des concepts de liberté et d’égalité est fréquent sous les Lumières, en particulier chez Rousseau et chez Locke. Cependant il faut attendre la Révolution française pour les voir réunies en triptyque. Dans un discours sur l'organisation des gardes nationales de décembre 1790, Robespierre propose que les mots « Le Peuple Français » et « Liberté, Égalité, Fraternité » soient inscrits sur les uniformes et sur les drapeaux, mais son projet n'est pas adopté.
+:. Le 14 juillet
+L'imagination populaire s’est emparée de la Bastille, dont elle fait volontiers un redoutable symbole d’absolutisme royal et d’arbitraire en matière de justice, plein des gémissements d’innombrables prisonniers s’étiolant sans libération possible à l’ombre de murs impénétrables. En réalité cette forteresse construite par le roi Charles V pour défendre la porte Saint-Antoine, un temps utilisée comme prison, avait progressivement perdu son importance au cours du XVIIIe siècle. Lors de l'ouverture de la forteresse conquise ou simplement remise suite à la reddition de sa garnison, le peuple de Paris n'y trouva que sept prisonniers, dont quatre faussaires.
+:. **Le coq**
+:+
+L’association du coq et de la France est née d’un jeu de mot : le mot latin gallus signifie à la fois « gaulois » et « coq ».  C’est pourquoi sa silhouette apparaît dès l'Antiquité sur les monnaies gauloises. 
+:. **Le faisceau de licteur**
+:+
+La partie centrale du motif représente des faisceaux constitués par l'assemblage de branches longues et fines liées autour d'une hache par des lanières. 
+Les faisceaux sont recouverts d'un bouclier sur lequel sont gravées les initiales RF (République française). Des branches de chêne et d'olivier entourent le motif. Le chêne symbolise la justice, l'olivier la paix.
+:. **Le sceau**
+:+ 
+Marques distinctives et signes d'autorité, les sceaux furent employés durant des siècles par les particuliers tout comme les instances de pouvoir civil ou religieux. L'usage du sceau n'est plus en vigueur aujourd’hui qu’en de très rares occasions d’une solennité particulière, notamment la signature de la Constitution ou ses modifications. Le sceau actuel de la République est celui qui fut frappé en 1848 pour la IIe République.
+
+

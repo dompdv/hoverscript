@@ -1,0 +1,10 @@
+:import partials/header.hvt
+
+:=== Chapters
+
+<%= for chapter <- @chapters do %>
+[title=<%= chapter["title"] %>,level=<%= chapter["level"] %>]
+:import partials/chapter.hvt
+<% end %>
+
+:para Built from a project directory with TOML data and imports.

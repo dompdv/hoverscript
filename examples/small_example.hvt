@@ -1,0 +1,55 @@
+:== Conclusions
+
+:para:left / **// Depart Italique et gras// ^^super^^ ,,subs,, ~~barré~~ et fin **
+
+Monsieur <%= @pour.nom %> <%= @pour.prenom %>
+
+Habitant à <%= @pour.adresse %>
+
+[a=12]
+
+:title Grand check_title_parameters **
+
+:sep
+
+  <% 
+
+[aligsn=tight, frame=1]
+:para paragraphe ** 
+voici la suite // de ** mon paragraph
+
+[align=tight, toto=true]   
+:para paragraphe
+
+:para:right/ Vers la droite
+
+:* Item 1
+:** Item 1.2
+:+
+Embedded paragraphe
+:+
+:quote
+Embedded quote
+:quote
+
+:quote
+
+:= kjfk
+
+:. Item 1
+:. Item 2
+
+:verbatim
+    def foo
+        puts "foo"
+    end
+:verbatim
+
+:slot
+un slot
+:* Item 1 in slot
+:* Item 2 in slot
+
+:slot
+
+

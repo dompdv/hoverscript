@@ -1,0 +1,63 @@
+:=        Hoverscript
+
+:==          General
+
+                Hoverscript is a lightweight markup language, inspired by Markdown and AsciiDoc.
+
+:p:center/      It is intended to be used for writing structured documents, with headings, lists, paragraphs,
+                                             quotes, tables, images, links, etc.
+
+:===            Document structure
+
+                   A document is a list of blocks of several types.
+
+:q
+                      There is a default "paragraph" block, which is used when the block type is not
+                      specified. The paragraph is simply made up of lines of text, followed by a blank
+                      line, or by the beginning of another block, indicated by a marker.
+:q
+:===            Indentation
+
+                   Indentation has no meaning, it is ignored by the parser. It is used for readability of the
+                   source file. There is a special case for verbatim blocks (see below)
+
+:===            Block marker
+
+                   A line that starts (first non-empty character) with a ":" indicates a new block. The block
+                   type is indicated by the word that follows the ":".
+
+                   We have either:
+:verbatim
+:*                 a block type without parameters, in which case we can write ":blocktype", for example
+                   ":para",
+:*                 a block type with named parameters, ":blocktype: par1=val1 par2=val2/" (note that it is not
+                   :blocktype par1=val1 par2=val2/, the ":" after the block type is mandatory)
+:*                 a block type with simple parameters, ":blocktype: val1 val2/". In this case, the meaning of
+                   the parameters is defined by the block type and the parameter position
+:verbatim
+
+                   There can be synonyms for common block types, with usual parameters:
+
+                   For example, heading blocks have as a fundamental parameter the title **level** (1 to 6).
+:*                 A level 1 heading block can be shorten by using simply ":=" or ":h:1/" or ":h: level=1/".
+:*                 A level 2 heading block can be indicated by: ":==" or ":h:2/" or ":h: level=2/".
+
+:===            Block marker parameters
+
+                   We can also specify block marker parameters by indicating them on the line **preceding**
+                   the block marker.
+
+                   A parameter line has the form "[par1=val1, par2=val2, ...]". Spaces can be put before and
+                   after the options, but nothing else should appear on the line
+
+                   For example, we can indicate the level of a heading by ":h:1/" or by
+:verbatim
+                   [level=1]
+                   :h This is a level 1 title
+:verbatim
+
+:===            Blank lines
+
+                   A line is said to be blank if it contains no characters or only "white" characters: spaces,
+                   tabs.
+

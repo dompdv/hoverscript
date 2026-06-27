@@ -1,0 +1,697 @@
+:= Hoverscript Language Guide
+
+:== Introduction
+
+Hoverscript is a lightweight markup language designed for writing structured documents with clear, consistent syntax. It is inspired by Markdown and AsciiDoc but aims to be simpler and more regular.
+
+Hoverscript documents consist of blocks (paragraphs, headings, lists, quotes, etc.) that can contain inline formatting (bold, italic, links, etc.).
+
+:== Basic Concepts
+
+:=== Document Structure
+
+A Hoverscript document is composed of sequential blocks. Each block can be:
+:* A paragraph (the default block type)
+:* A heading
+:* A list (bullet or numbered)
+:* A quote
+:* A code block (verbatim)
+:* A separator
+:* And more...
+
+Blocks are separated by blank lines or by explicit block markers.
+
+:=== Indentation
+
+**Important**: Indentation has no semantic meaning in Hoverscript. It is completely ignored by the parser and used only for source code readability.
+
+For example, these two documents are identical:
+
+:verbatim
+:para This is a paragraph
+:para Another paragraph
+:verbatim
+
+:verbatim
+:para This is a paragraph
+     :para Another paragraph
+:verbatim
+
+Exception: In verbatim blocks, relative indentation is preserved for formatting purposes.
+
+:=== Block Markers
+
+A block marker is a line that starts with a colon (:) followed by a block type name.
+
+Block markers can take three forms:
+
+:**  Long form with parameters and body: `:blocktype:parameters/body`
+:**  Short form with body: `:blocktype body`
+:**  Lonely form (no body): `:blocktype` or `:blocktype:` or `:blocktype:/`
+
+Examples:
+:verbatim
+:para:center/This paragraph is centered
+:para This paragraph uses default alignment
+:para
+:verbatim
+
+:=== Block Parameters
+
+Parameters can be specified in two ways:
+
+:==== Inline Parameters
+
+Parameters appear in the block marker itself:
+:verbatim
+:heading:level=2/My Title
+:para:align=center/Centered text
+:verbatim
+
+Parameters can be named or positional (meaning depends on block type):
+:verbatim
+:heading:2/My Title
+:para:center/Centered text
+:verbatim
+
+:==== Option Lines
+
+Parameters can be specified on the line **immediately before** the block marker using square brackets:
+
+:verbatim
+[level=2]
+:heading My Title
+
+[align=center]
+:para Centered text
+:verbatim
+
+This is useful for keeping block markers clean and readable.
+
+:=== Blank Lines
+
+A blank line is a line containing only whitespace (spaces, tabs) or no characters at all.
+
+Blank lines typically end blocks, but some blocks (like quotes and verbatim blocks) use explicit end markers.
+
+:=== Continuation Lines
+
+The special marker `:+` (with optional surrounding whitespace) is a continuation line. It is used primarily in lists to:
+:* Add multiple paragraphs to a list item
+:* Keep list items together without creating separate lists
+
+Example:
+:verbatim
+:* First item paragraph one
+:+
+Second paragraph of first item
+:* Second item
+:verbatim
+
+:=== Line Breaks
+
+To force a line break within a paragraph (like HTML's `<br>` tag), end the line with `::` (nothing should follow it).
+
+Example:
+:verbatim
+:para First line::
+Second line::
+Third line
+:verbatim
+
+:== Block Types
+
+:=== Paragraphs
+
+**Markers**: `:para`, `:p`, or no marker (default)
+
+Paragraphs are the default block type. Any text not preceded by a block marker is treated as a paragraph.
+
+**Parameters**:
+:* `align`: left, right, center, justify (default: justify)
+:* `frame`: 0 (no frame, default) or 1 (draw a frame around the paragraph)
+
+**Examples**:
+
+Default paragraph (no marker needed):
+:verbatim
+This is a simple paragraph.
+It can span multiple lines.
+
+This starts a new paragraph.
+:verbatim
+
+Explicit paragraph with center alignment:
+:verbatim
+:para:center/This text is centered
+:verbatim
+
+Using option line:
+:verbatim
+[align=right]
+:para
+This text is right-aligned
+:verbatim
+
+:=== Headings
+
+**Markers**: `:heading`, `:h`, or `:=` (shortcut)
+
+Headings have 6 levels (1-6), like HTML's h1 through h6.
+
+**Parameters**:
+:* `level`: 1 to 6 (default: 1)
+
+**Shortcut syntax**: The number of `=` signs indicates the level:
+:* `:=` → level 1 (h1)
+:* `:==` → level 2 (h2)
+:* `:===` → level 3 (h3)
+:* etc.
+
+**Examples**:
+
+:verbatim
+:= Main Document Title
+
+:== Section Title
+
+:=== Subsection Title
+
+:heading:level=4/Another Way to Write a Heading
+
+[level=5]
+:h Yet Another Heading Style
+:verbatim
+
+**Multi-line headings**: Heading text continues until a blank line or another block marker:
+
+:verbatim
+:== This is the beginning of a long heading
+that continues on this line
+and even this line
+
+This is a new paragraph.
+:verbatim
+
+:=== Bullet Lists
+
+**Markers**: `:list`, `:l`, or `:*` (shortcut)
+
+Bullet lists support up to 3 nesting levels.
+
+**Parameters**:
+:* `level`: 1, 2, or 3 (default: 1)
+
+**Shortcut syntax**:
+:* level 1
+:* level 2
+:* level 3
+
+**Examples**:
+
+Simple bullet list:
+:verbatim
+:* First item
+:* Second item
+:* Third item
+:verbatim
+
+Nested bullet list:
+:verbatim
+:* Top level item
+:** Nested item one
+:** Nested item two
+:* Another top level item
+:verbatim
+
+Multi-line list items:
+:verbatim
+:* This item has multiple lines
+of content that continues here
+:* This is a separate item
+:verbatim
+
+List item with multiple paragraphs:
+:verbatim
+:* First paragraph of the item
+:+
+Second paragraph of the same item
+:+
+Third paragraph
+:* Next item
+:verbatim
+
+:=== Numbered Lists
+
+**Markers**: `:num`, `:n`, or `:.` (shortcut)
+
+Numbered lists support up to 3 nesting levels and can have custom starting numbers.
+
+**Parameters**:
+:* `level`: 1, 2, or 3 (default: 1)
+:* `counter`: starting number as string (default: "1")
+
+**Shortcut syntax**:
+:* `:.` → level 1
+:* `:..` → level 2
+:* `:...` → level 3
+
+**Examples**:
+
+Simple numbered list:
+:verbatim
+:. First item
+:. Second item
+:. Third item
+:verbatim
+
+Nested numbered list:
+:verbatim
+:. Main step one
+:.. Sub-step one
+:.. Sub-step two
+:. Main step two
+:verbatim
+
+Custom starting number:
+:verbatim
+[counter=5]
+:num Continue numbering from 5
+:num This will be 6
+:num This will be 7
+:verbatim
+
+Mixed nesting (bullets and numbers):
+:verbatim
+:* Overview
+:.. First detailed step
+:.. Second detailed step
+:* Summary
+:verbatim
+
+**Important**: Blank lines between list items create separate lists!
+
+Wrong (creates two separate lists):
+:verbatim
+:. Item 1
+
+:. Item 2
+:verbatim
+
+This outputs:
+1. Item 1
+1. Item 2
+
+Correct (use continuation line):
+:verbatim
+:. Item 1
+:+
+:. Item 2
+:verbatim
+
+:=== Quote Blocks
+
+**Markers**: `:quote`, `:q`
+
+Quote blocks are fenced blocks that require explicit start and end markers. They can be nested and identified with names.
+
+**Parameters**:
+:* `name`: optional identifier for matching start/end markers in nested quotes
+
+**Syntax**:
+:* Start: `:quote` or `:quote:name/`
+:* End: `:quote` or `:quote:name/` (must match the start marker)
+
+**Examples**:
+
+Simple quote:
+:verbatim
+:quote
+This is a quoted text.
+It can span multiple lines.
+:quote
+:verbatim
+
+Named quote:
+:verbatim
+:quote:source1/
+Text from source 1
+:quote:source1/
+:verbatim
+
+Nested quotes:
+:verbatim
+:quote:outer/
+This is the outer quote.
+
+  :quote:inner/
+  This is a nested quote inside.
+  :quote:inner/
+
+Back to the outer quote.
+:quote:outer/
+:verbatim
+
+Quote with option line:
+:verbatim
+[name=aristotle]
+:quote
+To be or not to be...
+:quote
+:verbatim
+
+:=== Footnotes
+
+**Marker**: `:footnote`
+
+Footnotes are fenced blocks similar to quotes but designed for reference notes.
+
+**Parameters**:
+:* `ref`: optional reference identifier
+
+**Syntax**:
+:* Start: `:footnote` or `:footnote:ref/`
+:* End: `:footnote:/`
+
+Footnotes cannot be nested.
+
+**Examples**:
+
+:verbatim
+:footnote:note1/
+This is a footnote explaining something in detail.
+:footnote:/
+
+:footnote
+Another footnote without an explicit reference.
+:footnote:/
+:verbatim
+
+:=== Verbatim Blocks (Code Blocks)
+
+**Marker**: `:verbatim`
+
+Verbatim blocks display preformatted text, typically for code. Content is shown exactly as written, with no inline parsing.
+
+**Parameters**:
+:* `name`: optional identifier for matching start/end markers
+:* `type`: optional type designation
+:* `lang`: language for syntax highlighting (html, js, elixir, etc.)
+
+**Syntax**:
+:* Start: `:verbatim` or `:verbatim:name/`
+:* End: `:verbatim` or `:verbatim:name/`
+
+**Examples**:
+
+Simple code block:
+:verbatim
+:verbatim
+function hello() {
+  console.log("Hello, world!");
+}
+:verbatim
+:verbatim
+
+With language specification:
+:verbatim
+[lang=elixir]
+:verbatim
+defmodule Hello do
+  def world, do: :ok
+end
+:verbatim
+:verbatim
+
+Named verbatim block (useful if content contains `:verbatim`):
+:verbatim
+:verbatim:code1/
+This code contains :verbatim markers
+that would otherwise end the block.
+:verbatim:code1/
+:verbatim
+
+**Important**: Inside verbatim blocks:
+:* No inline formatting is processed
+:* Relative indentation is preserved
+:* EEx tags are not processed
+
+:=== Separators
+
+**Marker**: `:separator`, `:sep`
+
+Separators create horizontal rules between sections.
+
+**Parameters**:
+:* `type`: line (default), stars, asterism, dinkus
+
+**Examples**:
+
+:verbatim
+:sep
+
+:sep:line/
+
+:separator:stars/
+
+[type=asterism]
+:sep
+:verbatim
+
+:=== Titles
+
+**Marker**: `:title`
+
+Title blocks are special display blocks, typically for document titles or special announcements.
+
+**Parameters**:
+:* `align`: center (default), left, right
+
+**Examples**:
+
+:verbatim
+:title My Document Title
+
+[align=left]
+:title Left-aligned Title
+:verbatim
+
+:=== Slots
+
+**Marker**: `:slot`
+
+Slots are generic container blocks for special purposes.
+
+**Parameters**:
+:* `name`: optional slot identifier
+
+**Examples**:
+
+:verbatim
+:slot:sidebar/
+Content for a sidebar
+:slot
+
+[name=callout]
+:slot
+Important information
+:slot
+:verbatim
+
+:== Inline Formatting
+
+Inline formatting applies to text within blocks. Formatting markers use doubled characters.
+
+:=== Basic Formatting
+
+:**  Emphasis (italic): `//text//`
+:**  Strong (bold): `**text**`
+:**  Underline: `__text__`
+:**  Strikeout: `~~text~~`
+:**  Superscript: `^^text^^`
+:**  Subscript: `,,text,,`
+
+**Examples**:
+
+:verbatim
+This is //italic text// and this is **bold text**.
+
+You can __underline__ text or ~~strike it out~~.
+
+Use ^^superscript^^ for exponents like x^^2^^ or ,,subscript,, for H,,2,,O.
+:verbatim
+
+:=== Nested Formatting
+
+Formatting can be nested, allowing combinations like bold italic text.
+
+**Rule**: You cannot nest the same formatting type within itself.
+
+**Examples**:
+
+Valid nesting:
+:verbatim
+**Bold with //italic inside// it**
+
+//Italic with __underline__ and **bold**//
+:verbatim
+
+Invalid (won't work as expected):
+:verbatim
+**Bold with **more bold** inside**
+:verbatim
+
+Complex nesting example:
+:verbatim
+When //the sky ,,low,, and **heavy**// __weighs__ like a lid
+:verbatim
+
+This produces: italic text containing subscript and bold, plus underlined text.
+
+:=== EEx Template Tags
+
+Hoverscript supports EEx (Embedded Elixir) template syntax for dynamic content:
+
+:verbatim
+Dear <%= @user.name %>,
+
+Your balance is <%= @account.balance %>.
+:verbatim
+
+EEx tags are preserved during parsing and can be evaluated later.
+
+:=== Special Inlines
+
+Special inlines have the form: 
+:verbatim
+[:inline_type:parameters]++text++` or `[:inline_type:parameters]` if no text is needed.
+:verbatim
+
+**Examples**:
+
+:verbatim
+See [:image:diagram1] for details.
+
+Click [:link:https://example.com]++here++ for more information.
+
+This needs a citation[:footnote:ref1].
+
+Images: `[:image:name]` or `[:img:name]`
+Footnotes: `[:footnote:ref]`
+Links: `[:link:url]++link text++`
+:verbatim
+
+:== Complete Examples
+
+:=== Simple Document
+
+:verbatim
+:= Getting Started with Hoverscript
+
+:== Introduction
+
+Hoverscript is easy to learn. Here's what you need to know:
+
+:* It uses clear, consistent syntax
+:* Blocks are separated by blank lines
+:* Inline formatting uses doubled characters
+
+:== Basic Formatting
+
+You can make text **bold** or //italic//.
+
+:sep
+
+:== Lists
+
+Numbered lists are simple:
+
+:. First step
+:. Second step
+:. Third step
+
+That's it!
+:verbatim
+
+:=== Advanced Document
+
+:verbatim
+[align=center]
+:title Advanced Hoverscript Techniques
+
+:== Code Examples
+
+Here's some Elixir code:
+
+[lang=elixir]
+:verbatim
+defmodule MyApp do
+  def hello(name) do
+    IO.puts("Hello, #{name}!")
+  end
+end
+:verbatim
+
+:== Nested Lists and Quotes
+
+:* Main points:
+:** Sub-point one
+:** Sub-point two with //emphasis//
+:* Another main point
+
+:quote:einstein/
+Imagination is more important than knowledge.
+:quote:einstein/
+
+:== Inline Formatting
+
+You can combine **bold and //italic//** text.
+
+Chemical formulas work too: H,,2,,O or E = mc^^2^^.
+:verbatim
+
+:== Tips and Best Practices
+
+:**  Use blank lines to separate blocks clearly
+:**  Indent your source for readability (the parser ignores it)
+:**  Use shortcuts (`:=`, `:*`, `:.`) for common blocks
+:**  Name your quotes and verbatim blocks when nesting them
+:**  Use continuation lines (`:+`) to keep list items together
+:**  Use option lines for complex parameters to keep markers clean
+:**  Remember: indentation is for humans, not the parser!
+
+:sep
+
+:== Quick Reference
+
+:=== Block Markers
+
+:verbatim
+:para or :p          Paragraph
+:heading or :h or := Heading (use =, ==, === for levels)
+:list or :l or :*    Bullet list (use *, **, *** for levels)
+:num or :n or :.     Numbered list (use ., .., ... for levels)
+:quote or :q         Quote block (needs end marker)
+:footnote            Footnote block (needs end marker)
+:verbatim            Code block (needs end marker)
+:sep                 Horizontal separator
+:title               Title block
+:slot                Slot container
+:verbatim
+
+:=== Inline Formatting
+
+:verbatim
+//text//     Italic
+**text**     Bold
+__text__     Underline
+~~text~~     Strikeout
+^^text^^     Superscript
+,,text,,     Subscript
+::           Line break (at end of line)
+<%= %>       EEx template
+[:tag]++txt++  Special inline (image, link, footnote)
+:verbatim
+
+:sep
+

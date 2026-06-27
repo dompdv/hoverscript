@@ -1,0 +1,3 @@
+:heading <%= @title %>
+
+:para This is chapter **<%= @title %>** at level <%= @level %>.

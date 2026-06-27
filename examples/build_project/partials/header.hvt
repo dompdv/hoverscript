@@ -1,0 +1,5 @@
+:= <%= @site["title"] %>
+
+:para by <%= @site["author"] %>
+
+:sep
