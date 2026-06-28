@@ -21,11 +21,18 @@ defmodule Hoverscript do
       html = Hoverscript.text_to_html!(":para Hello")
       html = Hoverscript.ast_to_html(ast)
       floki = Hoverscript.ast_to_floki(ast)
+
+  ## LaTeX
+
+      {:ok, latex} = Hoverscript.text_to_latex(":para Hello")
+      latex = Hoverscript.text_to_latex!(":para Hello")
+      latex = Hoverscript.ast_to_latex(ast)
   """
 
   alias Hoverscript.Parser.Parse
   alias Hoverscript.Formatter.Format
   alias Hoverscript.Converter.ToHtml
+  alias Hoverscript.Converter.ToLatex
   alias Hoverscript.Build
 
   @doc """
@@ -183,6 +190,45 @@ defmodule Hoverscript do
   Parses a Hoverscript document and converts it to HTML, raising on parse failure.
   """
   def text_to_html!(text), do: text |> parse!() |> ast_to_html()
+
+  @doc """
+  Converts an AST to LaTeX.
+
+  See `Hoverscript.Converter.ToLatex` for options.
+
+  ## Examples
+
+      iex> ast = Hoverscript.parse!(":para Hello")
+      iex> latex = Hoverscript.ast_to_latex(ast, fragment: true)
+      iex> String.contains?(latex, "Hello")
+      true
+
+  """
+  def ast_to_latex(ast, opts \\ []), do: ToLatex.to_latex(ast, opts)
+
+  @doc """
+  Parses a Hoverscript document and converts it to LaTeX.
+
+  Returns LaTeX even when parsing produces errors.
+
+  ## Examples
+
+      iex> {:ok, latex} = Hoverscript.text_to_latex(":para Hello", fragment: true)
+      iex> String.contains?(latex, "Hello")
+      true
+
+  """
+  def text_to_latex(text, opts \\ []) do
+    case parse(text) do
+      {:ok, ast} -> {:ok, ast_to_latex(ast, opts)}
+      {:error, errors, ast} -> {:error, errors, ast_to_latex(ast, opts)}
+    end
+  end
+
+  @doc """
+  Parses a Hoverscript document and converts it to LaTeX, raising on parse failure.
+  """
+  def text_to_latex!(text, opts \\ []), do: text |> parse!() |> ast_to_latex(opts)
 
   @doc """
   Builds a Hoverscript project directory into a parsed AST.

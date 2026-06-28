@@ -1,0 +1,9 @@
+\documentclass[<%= @class_options %>]{<%= @documentclass %>}
+<%= Enum.join(@usepackage_lines, "\n") %>
+<%= @preamble_extra %><%= if @title do %>
+\title{<%= @title %>}<% end %><%= if @author do %>
+\author{<%= @author %>}<% end %><%= if @date do %>
+\date{<%= @date %>}<% end %>
+\begin{document}
+<%= if @maketitle do %>\maketitle
+<% end %><%= @body %>\end{document}
