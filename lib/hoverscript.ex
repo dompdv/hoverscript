@@ -20,6 +20,7 @@ defmodule Hoverscript do
       {:ok, html} = Hoverscript.text_to_html(":para Hello")
       html = Hoverscript.text_to_html!(":para Hello")
       html = Hoverscript.ast_to_html(ast)
+      floki = Hoverscript.ast_to_floki(ast)
   """
 
   alias Hoverscript.Parser.Parse
@@ -145,6 +146,19 @@ defmodule Hoverscript do
 
   """
   def ast_to_html(ast), do: ToHtml.to_html(ast)
+
+  @doc """
+  Converts an AST to a Floki HTML tree (without serializing to a string).
+
+  ## Examples
+
+      iex> ast = Hoverscript.parse!(":para Hello")
+      iex> floki = Hoverscript.ast_to_floki(ast)
+      iex> is_list(floki)
+      true
+
+  """
+  def ast_to_floki(ast), do: ToHtml.to_floki(ast)
 
   @doc """
   Parses a Hoverscript document and converts it to HTML.

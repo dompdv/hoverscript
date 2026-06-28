@@ -6,7 +6,11 @@ defmodule Hoverscript.Converter.ToHtml do
   # TODO: check that all tags are handled (blocks and inlines)
 
   def to_html(hoverscript_ast) do
-    to_html_ast(hoverscript_ast) |> Floki.raw_html()
+    to_floki(hoverscript_ast) |> Floki.raw_html()
+  end
+
+  def to_floki(hoverscript_ast) do
+    to_html_ast(hoverscript_ast)
   end
 
   @classes %{
