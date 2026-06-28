@@ -146,12 +146,15 @@ date = "27 June 2025"
 :para Yours sincerely,
 ```
 
-The build inlines the letterhead, replaces the `<%= @client[...] %>` placeholders, and parses the merged text. You can then convert the result to HTML:
+The build inlines the letterhead, replaces the `<%= @client[...] %>` placeholders, and parses the merged text. You can then convert the result to HTML or LaTeX:
 
 ```elixir
 {:ok, ast, _meta} = Hoverscript.build("letter")
 html = Hoverscript.ast_to_html(ast)
 File.write!("letter.html", html)
+
+latex = Hoverscript.ast_to_latex(ast)
+File.write!("letter.tex", latex)
 ```
 
 See the [Project Build Guide](doc/BUILD.md) for the full syntax (parameterized imports, loops, and more). A runnable demo lives in [`examples/build_project/`](examples/build_project/).
@@ -172,6 +175,37 @@ html = Hoverscript.text_to_html!(":= Title\n\n:para Hello **world**")
 # Format source in memory
 {:ok, formatted} = Hoverscript.format(messy_text)
 formatted = Hoverscript.format!(messy_text, width: 80, column: 8, step: 2)
+```
+
+### Convert to LaTeX
+
+The LaTeX converter produces a full document by default (preamble, packages, `\begin{document}`). Pass `fragment: true` for body content only.
+
+```elixir
+# Parse then convert to LaTeX
+{:ok, ast} = Hoverscript.parse(hoverscript_text)
+latex = Hoverscript.ast_to_latex(ast)
+File.write!("output.tex", latex)
+
+# One step: Hoverscript text → LaTeX
+{:ok, latex} = Hoverscript.text_to_latex(hoverscript_text)
+latex = Hoverscript.text_to_latex!(":= Title\n\n:para Hello **world**")
+
+# Body only (no preamble)
+latex = Hoverscript.ast_to_latex(ast, fragment: true)
+
+# Custom document class and metadata
+latex = Hoverscript.ast_to_latex(ast,
+  documentclass: "report",
+  class_options: ["12pt", "a4paper"],
+  babel: "english",
+  author: "Jane Doe"
+)
+
+# From a built project
+{:ok, ast, _meta} = Hoverscript.build("examples/build_project")
+latex = Hoverscript.ast_to_latex(ast)
+File.write!("_build/main.tex", latex)
 ```
 
 ### Format files in place
@@ -199,6 +233,27 @@ meta.source_map  # line → original file (for error reporting)
 html = Hoverscript.ast_to_html(ast)
 File.write!("output.html", html)
 ```
+
+### Build LaTeX (and optionally PDF)
+
+The `hvt_latex` mix task builds a project directory or parses a single `.hvt` file, writes a `.tex` file, and can run a LaTeX engine to produce a PDF.
+
+```bash
+# Project directory (TOML + imports + EEx, like hvt_build)
+mix hvt_latex examples/build_project
+mix hvt_latex examples/build_project --output _build/main.tex
+mix hvt_latex examples/build_project --pdf
+
+# Single file
+mix hvt_latex examples/heading_example.hvt
+mix hvt_latex examples/heading_example.hvt --stdout
+
+# Converter options
+mix hvt_latex examples/build_project --documentclass report --babel english --author "Author"
+mix hvt_latex examples/short_test.hvt --fragment -o body.tex
+```
+
+By default, project output is written to `_build/<entry>.tex` (e.g. `_build/main.tex`). Use `--pdf` to run `pdflatex` twice in the output directory (`--engine xelatex` or `lualatex` to override).
 
 ## Documentation
 
